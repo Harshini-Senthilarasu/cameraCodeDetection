@@ -20,6 +20,7 @@
         var video = document.getElementById('video');
 
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            disclaimerElement.innerHTML = 'This browser is supported';
             navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
                 .then(function(stream) {
                     console.log('getUserMedia succeeded');
