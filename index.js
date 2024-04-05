@@ -36,6 +36,7 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 // });
 
 function startScanning() {
+    scanBtn.style.display = 'none';
     const barcodeDetector = new BarcodeDetector();
     scanInterval = setInterval(async function() {
         if (!video.paused && !video.ended && !scanningPaused) {
@@ -83,6 +84,7 @@ function startScanning() {
 }
 
 function stopScanning() {
+    scanBtn.style.display = 'block';
     video.pause();
     clearInterval(scanInterval);
 }
@@ -90,6 +92,10 @@ function stopScanning() {
 scanBtn.addEventListener('click', function() {
     scanningPaused = false;
     video.play()
+    let rows = inventoryTable.getElementsByTagName('tr');
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].classList.remove('highlight');
+    }
     startScanning();
 })
 
@@ -101,7 +107,8 @@ confirmAddButton.addEventListener('click', function() {
         if (confirm('Are you sure you want to add this item?')) {
             const tbody = inventoryTable.querySelector('tbody');
             const newRow = document.createElement('tr');
-            newRow.innerHTML = `<td>${newItemName}</td><td>${newBarcode}</td><td>${0}</td>`;
+            newRow.innerHTML = `<td>${newItemName}</td><td>${newBarcode}</td><td>${1}</td>`;
+            newRow.classList.add('highlight');
             tbody.appendChild(newRow);
             popup.style.display = 'none';
         }
