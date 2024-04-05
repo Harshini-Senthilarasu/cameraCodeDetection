@@ -19,19 +19,21 @@
         var disclaimerElement = document.getElementById('disclaimer');
         var video = document.getElementById('video');
 
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+        if (navigator.getUserMedia) {
             disclaimerElement.innerHTML = 'This browser is supported';
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
-                .then(function(stream) {
+            navigator.getUserMedia({ video: { facingMode: 'environment' }, audio: false },
+                function(stream) {
                     console.log('getUserMedia succeeded');
                     video.srcObject = stream;
                     video.onloadedmetadata = function(e) {
                         video.play();
                     };
-                })
-                .catch(function(err) {
+                },
+                function(err) {
                     console.log('Error accessing camera: ', err);
-                });
+                }
+           };
         } else {
             disclaimerElement.innerHTML = 'This browser is not supported. Please try a different browser';
             console.log('getUserMedia is not supported on this browser');
