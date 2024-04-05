@@ -10,18 +10,18 @@ body {
 #video-container {
     position: relative;
     width: 100%;
-    max-width: 800px;
+    max-width: 200px;
 }
 #video {
     width: 100%;
-    max-height: 80vh; /* Limit height to 80% of viewport height */
+    max-height: 40vh; /* Limit height to 80% of viewport height */
     background-color: #000; /* Set background color for video */
     /* filter: blur(5px); Initial blur effect
     transition: filter 0.3s ease; */
 }
 #scanButton {
     position: absolute;
-    bottom: 20px;
+    top: 200px;
     left: 50%;
     transform: translateX(-50%);
     padding: 10px 20px;
@@ -35,25 +35,33 @@ body {
 #scanButton:hover {
     background-color: #0056b3;
 }
-#result, #disclaimer {
+
+#disclaimer {
+    font-size: 20px;
     margin-top: 20px;
     text-align: center; /* Center text */
 }
+
+#result{
+    top: 450px;
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center; /* Center text */
+}
+
 table {
     border-collapse: collapse;
     width: 80%;
     margin-top: 20px;
 }
 th, td {
+    font-size: 20px;
     border: 1px solid #dddddd;
     padding: 8px;
-    text-align: left;
-}
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+    text-align: center;
 }
 .highlight {
-    background-color: green !important;
+    background-color: rgb(111, 239, 111) !important;
 }
 .popup {
     display: none;
@@ -61,6 +69,7 @@ tr:nth-child(even) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-size: 20px;
     background-color: #fff;
     padding: 20px;
     border: 1px solid #ccc;
