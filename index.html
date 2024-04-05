@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode/QR Code Scanner</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module"
+    src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script>
+</head>
+<body>
+    <h1>Barcode/QR Code Scanner</h1>
+    <video id="video" autoplay playsinline></video>
+    <!-- <canvas hidden></canvas> -->
+    <div id="result">Detected code:</div>
+    <div id="disclaimer" hidden></div>
+    
+    <script src="index.js"></script>
+</body>
+</html>
