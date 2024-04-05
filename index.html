@@ -4,8 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcode Example</title>
-    <link rel="stylesheet" href="styles.css">
+<!--     <link rel="stylesheet" href="styles.css"> -->
 <!--     <script type="module" src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script> -->
+    <style>
+        /* CSS styling */
+        video {
+            position: center;
+            display: block;
+        }
+
+        #result:empty {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <video id="video" autoplay playsinline></video>
