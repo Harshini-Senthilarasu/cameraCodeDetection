@@ -4,183 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcode Example</title>
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f5f5f5; /* Set background color */
-        }
-        #video {
-            max-width: 100%;
-            max-height: 80vh; /* Limit height to 80% of viewport height */
-            background-color: #000; /* Set background color for video */
-        }
-        #result, #disclaimer {
-            margin-top: 20px;
-            text-align: center; /* Center text */
-        }
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            padding: 8px;
-            text-align: left;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .highlight {
-            background-color: green !important;
-        }
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 9999;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+<!--     <script type="module" src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script> -->
 </head>
 <body>
-    <video id="video" autoplay playsinline></video>
-    <div id="result">Detected</div>
-    <div id="disclaimer"></div>
-    <table id="barcodeTable">
-        <thead>
-            <tr>
-                <th>Barcode</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>12345</td>
-                <td>Item 1</td>
-            </tr>
-            <tr>
-                <td>67890</td>
-                <td>Item 2</td>
-            </tr>
-            <!-- Add more rows as needed -->
-        </tbody>
-    </table>
+    <div id="disclaimer" hidden></div>
+    <div id="videoContainer">
+        <video id="video" autoplay playsinline></video>
+        <button id="scanButton">Scan Again</button> <!--should be hidden-->
+    </div>
+    <div id="result"></div>
+
+    <div id="inventoryTable">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Code Value</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lychee Drink</td>
+                    <td>4909411085551</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Tully's Coffee</td>
+                    <td>4901085613580</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Food Wrapper</td>
+                    <td>4549131430905</td>
+                    <td>0</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
 
     <div id="popup" class="popup">
         <p>Barcode not found in the table. Do you want to add a new item?</p>
-        <input type="text" id="newBarcode" placeholder="Enter Barcode">
         <input type="text" id="newItemName" placeholder="Enter Item Name">
+        <input type="text" id="newValue" placeholder="Enter Value">
         <button id="confirmAdd">Yes</button>
         <button id="cancelAdd">No</button>
     </div>
 
-    <script type="module">
-        import './barcode-detector/dist/es/index.js';
-        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
-                .then(function(stream) {
-                    console.log('getUserMedia succeeded');
-                    const video = document.getElementById('video');
-                    video.srcObject = stream;
-                    video.onloadedmetadata = function(e) {
-                        video.play();
-                    };
-                })
-                .catch(function(err) {
-                    console.log('Error accessing camera: ', err);
-                });
-        } else {
-            const resultElement = document.getElementById('result');
-            resultElement.innerHTML = 'getUserMedia is not supported on this browser';
-            console.log('getUserMedia is not supported on this browser');
-        }
-
-        const barcodeTable = document.getElementById('barcodeTable');
-        const popup = document.getElementById('popup');
-        const newBarcodeInput = document.getElementById('newBarcode');
-        const newItemNameInput = document.getElementById('newItemName');
-        const confirmAddButton = document.getElementById('confirmAdd');
-        const cancelAddButton = document.getElementById('cancelAdd');
-
-        document.getElementById('video').addEventListener('play', async function() {
-            const barcodeDetector = new BarcodeDetector();
-
-            const scanInterval = setInterval(async function() {
-                
-                if (!this.paused && !this.ended) {
-                    try {
-                        const barcodes = await barcodeDetector.detect(video);
-
-                        if (barcodes && barcodes.length > 0) {
-                            const resultElement = document.getElementById('result');
-                            resultElement.innerHTML = '';
-
-                            let foundMatch = false;
-
-                            barcodes.forEach(barcode => {
-                                resultElement.innerHTML += `<p>Type: ${barcode.format}, Value: ${barcode.rawValue}</p>`;
-
-                                let rows = barcodeTable.getElementsByTagName('tr');
-                                for (let i = 0; i < rows.length; i++) {
-                                    const cells = rows[i].getElementsByTagName('td');
-                                    for (let j = 0; j < cells.length; j++) {
-                                        if (cells[j].innerText === barcode.rawValue) {
-                                            rows[i].classList.add('highlight');
-                                            foundMatch = true;
-                                            break;
-                                        }
-                                    }
-                                    if (foundMatch) {
-                                        break;
-                                    }
-                                }
-
-                                if (!foundMatch) {
-                                    // Barcode not found in the table, show popup
-                                    popup.style.display = 'block';
-                                    newBarcodeInput.value = barcode.rawValue;
-                                    newItemNameInput.value = '';
-                                }
-                            });
-                        }
-                    } catch (error) {
-                        console.error('Barcode detection error:', error);
-                    }
-                }
-            }, 1000); // Adjust scan interval as needed
-        });
-
-        confirmAddButton.addEventListener('click', function() {
-            const newBarcode = newBarcodeInput.value.trim();
-            const newItemName = newItemNameInput.value.trim();
-
-            if (newBarcode && newItemName) {
-                if (confirm('Are you sure you want to add this item?')) {
-                    const tbody = barcodeTable.querySelector('tbody');
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `<td>${newBarcode}</td><td>${newItemName}</td>`;
-                    tbody.appendChild(newRow);
-                    popup.style.display = 'none';
-                }
-            } else {
-                alert('Please enter both barcode and item name.');
-            }
-        });
-
-        cancelAddButton.addEventListener('click', function() {
-            popup.style.display = 'none';
-        });
-    </script>
+    <script type="module" src="index.js"></script>
 </body>
 </html>
