@@ -1,5 +1,5 @@
 export { setZXingModuleOverrides } from "./BarcodeDetector.js";
-var BarcodeDetector: typeof import("./BarcodeDetector.js").BarcodeDetector;
+
 type BarcodeDetector = import("./BarcodeDetector.js").BarcodeDetector;
 type BarcodeFormat = import("./BarcodeDetector.js").BarcodeFormat;
 type BarcodeDetectorOptions = import("./BarcodeDetector.js").BarcodeDetectorOptions;
