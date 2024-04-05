@@ -14,50 +14,49 @@
 
     <script type="module">
         import './barcode-detector/dist/es/index.js';
-        const barcodeDetector = new BarcodeDetector();
-        var resultElement = document.getElementById('result');
-        var disclaimerElement = document.getElementById('disclaimer');
-        var video = document.getElementById('video');
-
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-        if (navigator.getUserMedia) {
-            disclaimerElement.innerHTML = 'This browser is supported';
-            navigator.getUserMedia({ video: { facingMode: 'environment' }, audio: false },
-                function(stream) {
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+                .then(function(stream) {
                     console.log('getUserMedia succeeded');
+                    const video = document.getElementById('video');
                     video.srcObject = stream;
                     video.onloadedmetadata = function(e) {
                         video.play();
                     };
-                },
-                function(err) {
+                })
+                .catch(function(err) {
                     console.log('Error accessing camera: ', err);
-                }
-           };
+                });
         } else {
-            disclaimerElement.innerHTML = 'This browser is not supported. Please try a different browser';
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = 'getUserMedia is not supported on this browser';
             console.log('getUserMedia is not supported on this browser');
         }
 
-        video.addEventListener('play', detectBarQRCodes);
+        document.getElementById('video').addEventListener('play', async function() {
+            const barcodeDetector = new BarcodeDetector();
 
-        async function detectBarQRCodes() {  
             const scanInterval = setInterval(async function() {
-                if (!video.paused && !video.ended) {
-                    try {
-                        const barcodes = await barcodeDetector.detect(video);
-                        if (barcodes && barcodes.length > 0) {
-                            resultElement.innerHTML = '';
-                            barcodes.forEach(barcode => {
-                                resultElement.innerHTML += `Detected Code: ${barcode.rawValue}</p>`;
-                            });
-                        }
-                    } catch (error) {
-                        console.error('Barcode detection error:', error);
+                
+                if (!this.paused && !this.ended) {
+                try {
+                    
+                    const barcodes = await barcodeDetector.detect(video);
+
+                    if (barcodes && barcodes.length > 0) {
+                        const resultElement = document.getElementById('result');
+                        resultElement.innerHTML = '';
+
+                        barcodes.forEach(barcode => {
+                            resultElement.innerHTML += `<p>Type: ${barcode.format}, Value: ${barcode.rawValue}</p>`;
+                        });
                     }
+                } catch (error) {
+                    console.error('Barcode detection error:', error);
+                }
                 }
             }, 1000); // Adjust scan interval as needed
-        }
+        });
     </script>
 </body>
 </html>
