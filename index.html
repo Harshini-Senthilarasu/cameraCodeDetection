@@ -3,18 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barcode/QR Code Scanner</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="module"
-    src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script>
+    <title>Barcode Detection Example</title>
 </head>
 <body>
-    <h1>Barcode/QR Code Scanner</h1>
-    <video id="video" autoplay playsinline></video>
-    <!-- <canvas hidden></canvas> -->
-    <div id="result">Detected code:</div>
-    <div id="disclaimer" hidden></div>
-    
-    <script src="index.js"></script>
+    <video id="video" width="640" height="480" autoplay></video>
+    <div id="result"></div>
+    <div id="disclaimer"></div>
+
+    <!-- Include the barcode-detector library from a CDN -->
+    <script type="module" src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script>
+
+    <script>
+        var resultElement = document.getElementById('result');
+        var disclaimerElement = document.getElementById('disclaimer');
+        var video = document.getElementById('video');
+
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+                .then(function(stream) {
+                    console.log('getUserMedia succeeded');
+                    video.srcObject = stream;
+                    video.onloadedmetadata = function(e) {
+                        video.play();
+                    };
+                })
+                .catch(function(err) {
+                    console.log('Error accessing camera: ', err);
+                });
+        } else {
+            disclaimerElement.innerHTML = 'This browser is not supported. Please try a different browser';
+            console.log('getUserMedia is not supported on this browser');
+        }
+
+        video.addEventListener('play', detectBarQRCodes);
+
+        async function detectBarQRCodes() {  
+            const barcodeDetector = new BarcodeDetector();
+            const scanInterval = setInterval(async function() {
+                if (!video.paused && !video.ended) {
+                    try {
+                        const barcodes = await barcodeDetector.detect(video);
+                        if (barcodes && barcodes.length > 0) {
+                            resultElement.innerHTML = '';
+                            barcodes.forEach(barcode => {
+                                resultElement.innerHTML += `Detected Code: ${barcode.rawValue}</p>`;
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Barcode detection error:', error);
+                    }
+                }
+            }, 1000); // Adjust scan interval as needed
+        }
+    </script>
 </body>
 </html>
