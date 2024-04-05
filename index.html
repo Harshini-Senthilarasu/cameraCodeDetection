@@ -10,10 +10,8 @@
     <div id="result"></div>
     <div id="disclaimer"></div>
 
-    <!-- Include the barcode-detector library from a CDN -->
-    <script type="module" src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script>
-
     <script>
+        import BarcodeDetector from 'barcode-detector';
         var resultElement = document.getElementById('result');
         var disclaimerElement = document.getElementById('disclaimer');
         var video = document.getElementById('video');
