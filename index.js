@@ -1,4 +1,4 @@
-// const { BarcodeDetector } = require("barcode-detector");
+import ('barcode-detector');
 
 var resultElement = document.getElementById('result');
 var disclaimerElement = document.getElementById('disclaimer');
