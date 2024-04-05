@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcode Example</title>
+    <script type="module" src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script>
 </head>
 <body>
     <video id="video" width="640" height="480" autoplay></video>
@@ -11,7 +12,8 @@
     <div id="disclaimer"></div>
 
     <script>
-        import { BarcodeDetector } from './barcode-detector';
+        import { BarcodeDetector } from "https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/pure.min.js";
+        const barcodeDetector = new BarcodeDetector();
         var resultElement = document.getElementById('result');
         var disclaimerElement = document.getElementById('disclaimer');
         var video = document.getElementById('video');
@@ -36,7 +38,6 @@
         video.addEventListener('play', detectBarQRCodes);
 
         async function detectBarQRCodes() {  
-            const barcodeDetector = new BarcodeDetector();
             const scanInterval = setInterval(async function() {
                 if (!video.paused && !video.ended) {
                     try {
