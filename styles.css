@@ -13,28 +13,24 @@ body {
 
 h1 {
     text-align: center; /* Center-align the heading */
-    font-size: 32px; /* Adjust the font size */
+    font-size: 24px; /* Adjust the font size for mobile */
     color: #333; /* Set the text color */
-    margin-bottom: 20px; /* Add some bottom margin for spacing */
+    margin-bottom: 10px; /* Add some bottom margin for spacing */
 }
 
 #videoContainer {
-    margin-bottom: 20px; /* Add space between video container and other elements */
+    margin-bottom: 10px; /* Add space between video container and other elements */
 }
 
 #video {
     width: 100%;
-    max-height: 40vh; /* Limit height to 40% of viewport height */
+    max-height: 30vh; /* Limit height to 30% of viewport height for mobile */
     background-color: #000; /* Set background color for video */
 }
 
 #scanButton {
-    position: absolute; /* Position the button absolutely within the container */
-    top: 50%; /* Place the button vertically at the middle of the container */
-    left: 50%; /* Place the button horizontally at the middle of the container */
-    transform: translate(-50%, -50%); /* Center the button perfectly */
-    padding: 15px 25px; /* Increase padding */
-    font-size: 24px; /* Increase font size */
+    padding: 12px 20px; /* Adjust padding for mobile */
+    font-size: 18px; /* Adjust font size for mobile */
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -44,14 +40,14 @@ h1 {
 }
 
 #result {
-    font-size: 32px; /* Increase font size */
-    margin-top: 20px;
+    font-size: 24px; /* Increase font size for mobile */
+    margin-top: 15px; /* Increase margin top for mobile */
 }
 
 #reqQtyBtn,
 #rmvBtn {
-    padding: 15px 25px; /* Increase padding */
-    font-size: 24px; /* Increase font size */
+    padding: 12px 20px; /* Adjust padding for mobile */
+    font-size: 18px; /* Adjust font size for mobile */
     background-color: #d74a69;
     color: #fff;
     border: none;
@@ -61,20 +57,19 @@ h1 {
 }
 
 #inventoryTable {
-    width: 80%;
-    margin-top: 20px;
-    left: 20%;
+    width: 90%; /* Increase width for better readability on mobile */
+    margin-top: 15px; /* Increase margin top for mobile */
 }
 
 table {
-    width: 80%;
+    width: 100%; /* Adjust width for mobile */
     border-collapse: collapse;
 }
 
 th, td {
-    font-size: 24px; /* Increase font size */
+    font-size: 18px; /* Adjust font size for mobile */
     border: 1px solid #dddddd;
-    padding: 8px; /* Increase padding */
+    padding: 6px; /* Adjust padding for mobile */
     text-align: center;
 }
 
@@ -84,38 +79,38 @@ th, td {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 24px;
+    font-size: 18px; /* Adjust font size for mobile */
     background-color: #fff;
-    padding: 20px;
+    padding: 15px;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9999;
 }
 
 .input-group {
-    margin-bottom: 15px; /* Increase margin bottom */
+    margin-bottom: 10px; /* Adjust margin bottom for mobile */
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 10px; /* Increase margin bottom */
+    margin-bottom: 8px; /* Adjust margin bottom for mobile */
 }
 
 .input-group input,
 .dropDown {
     width: 100%;
-    padding: 12px; /* Increase padding */
+    padding: 10px; /* Adjust padding for mobile */
     box-sizing: border-box;
     border: 2px solid #ccc; /* Change border size */
     border-radius: 5px;
-    font-size: 24px; /* Increase font size */
+    font-size: 18px; /* Adjust font size for mobile */
 }
 
 #confirm,
 #cancel {
-    margin-top: 15px; /* Increase margin top */
-    padding: 15px 25px; /* Increase padding */
-    font-size: 20px; /* Increase font size */
+    margin-top: 10px; /* Adjust margin top for mobile */
+    padding: 12px 20px; /* Adjust padding for mobile */
+    font-size: 16px; /* Adjust font size for mobile */
     background-color: #007bff;
     color: #fff;
     border: none;
