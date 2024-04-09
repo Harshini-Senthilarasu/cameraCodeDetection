@@ -41,10 +41,10 @@ var tableData = [{  codeValue: "4902179022226",
                     itemName: "Lemon Tea", 
                     reqQty: 1,
                     currentQty: 0},
-                 {  codeValue: "4901085613580", 
-                    itemName: "Tully's Coffee Drink", 
-                    reqQty: 3,
-                    currentQty: 0},
+                //  {  codeValue: "4901085613580", 
+                //     itemName: "Tully's Coffee Drink", 
+                //     reqQty: 3,
+                //     currentQty: 0},
                 //  {  codeValue: "4901306069530", 
                 //     itemName: "Wheat Drink", 
                 //     reqQty: 3,
@@ -116,8 +116,8 @@ function startScanning() {
                             newScanPopup.style.display = 'block'; // Barcode not found in the table, show popup
                             newValue.value = barcode.rawValue;
                             newItemName.value = '';
-                            newReqQty.value = 0;
-                            newQty.value = 0;
+                            newReqQty.value = '';
+                            newQty.value = '';
                         }
                     });
                 }
@@ -173,9 +173,14 @@ function cancelButton(event) {
     var parentPopup = event.target.closest(".popup"); //find the parent popup
 
     if (parentPopup.id === "newScanPopup") {
+        newValue.value = '';
+        newItemName.value = '';
+        newReqQty.value = '';
+        newQty.value = '';
         parentPopup.style.display = 'none';
     }
     if (parentPopup.id === "reqQtyPopup") {
+        dropDownReqQty.value = '';
         parentPopup.style.display = 'none';
     }
     if (parentPopup.id === "rmvPopup") {
@@ -214,11 +219,15 @@ function confirmButton(event) {
         if (confirm('Are you sure you want to edit the item?')) {
             const dropDownRow = tableData.find(row => row.itemName === dropDownItem.value);
             const dropDownIndex = tableData.findIndex(row => row.itemName === dropDownItem.value);
-            dropDownRow.reqQty = parseInt(dropDownReqQty.value);
+            let value = parseInt(dropDownReqQty.value);
+            if (value < 0){
+                dropDownRow.reqQty = value;
+            }            
             // console.log(tableData);
             // tableData.appendChild(dropDownRow);
             // console.log("DropDownRow:", dropDownIndex);
             displayTable(0, dropDownIndex);
+            dropDownReqQty.value = '';
             reqQtyPopup.style.display = 'none';
         }
     }
@@ -245,7 +254,6 @@ Brief:  This would wait for the reqQtyBtn to be clicked, then display the
 reqQtyBtn.addEventListener('click', function() {
     reqQtyPopup.style.display = 'block';
     dropDownItem.innerHTML = "<option value='' selected disabled>Please select</option>"; // Reset dropdown
-
     tableData.forEach(function(row) {
         var option = document.createElement("option");
         option.text = row.itemName;
@@ -298,6 +306,10 @@ function displayTable(val, rowIndex) {
         }
         if(row.currentQty === row.reqQty){
             tr.style.backgroundColor = 'darkgreen';
+            tr.style.color = 'white';
+        }
+        else if(row.currentQty > row.reqQty) {
+            tr.style.backgroundColor = 'red';
             tr.style.color = 'white';
         }
            
