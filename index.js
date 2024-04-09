@@ -19,7 +19,7 @@ var dropDownReqQty = document.getElementById('newReqQty');
 const reqQtyBtn = document.getElementById("reqQtyBtn");
 const rmvBtn = document.getElementById("rmvBtn");
 const exceededPopup = document.getElementById("exceededPopup");
-const closeBtn = document.getElementById("close");
+const closeButtons = document.querySelectorAll('#exceededPopup #close, #completedPopup #close');
 const rmvPopup = document.getElementById('rmvPopup');
 var confirmButtons = document.querySelectorAll('#newScanPopup #confirm, #reqQtyPopup #confirm, #rmvPopup #confirm'); //selects the confirm button on both popups
 var cancelButtons = document.querySelectorAll('#newScanPopup #cancel, #reqQtyPopup #cancel, #rmvPopup #cancel'); //selects the cancel button on both popups
@@ -43,10 +43,10 @@ var tableData = [{  codeValue: "4902179022226",
                     itemName: "Lemon Tea", 
                     reqQty: 1,
                     currentQty: 0},
-                 {  codeValue: "4901085613580", 
-                    itemName: "Tully's Coffee Drink", 
-                    reqQty: 1,
-                    currentQty: 0},
+                //  {  codeValue: "4901085613580", 
+                //     itemName: "Tully's Coffee Drink", 
+                //     reqQty: 3,
+                //     currentQty: 0},
                 //  {  codeValue: "4901306069530", 
                 //     itemName: "Wheat Drink", 
                 //     reqQty: 3,
@@ -201,7 +201,7 @@ function confirmButton(event) {
     var parentPopup = event.target.closest(".popup"); //find the parent popup
 
     if (parentPopup.id === "newScanPopup") {
-        if (newValue && newItemName) {
+        if (newValue && newItemName && newReqQty && newQty) {
             if (confirm('Are you sure you want to add this item?')) {
                 rowData.codeValue = newValue.value;
                 rowData.itemName = newItemName.value;
@@ -214,7 +214,7 @@ function confirmButton(event) {
                 updateResult(4); //result element will display that new item has been added
             }
         } else {
-            alert('Please enter both barcode and item name.');
+            alert('Please enter all required values.');
         }
     }   
     
@@ -336,9 +336,20 @@ function displayTable(val, rowIndex) {
     })
 }
 
-closeBtn.addEventListener("click", function() {
-    exceededPopup.style.display = 'none';
-})
+closeButtons.forEach(function(button) {
+    button.addEventListener("click",  closeButton);
+});
+
+function closeButton(event) {
+    var parentPopup = event.target.closest(".popup"); //find the parent popup
+
+    if (parentPopup.id === "exceededPopup") {
+        exceededPopup.style.display = 'none';
+    }
+    if (parentPopup.id === "completedPopup") {
+        exceededPopup.style.display = 'none';
+    }
+}
 
 rmvBtn.addEventListener("click", function() {
     rmvPopup.style.display = 'block';
