@@ -11,8 +11,11 @@ body {
     font-family: 'Aptos', sans-serif; /* Use Aptos font */
 }
 
-#h1 {
-    font-size: 80px;
+h1 {
+    text-align: center; /* Center-align the heading */
+    font-size: 24px; /* Adjust the font size */
+    color: #333; /* Set the text color */
+    margin-bottom: 20px; /* Add some bottom margin for spacing */
 }
 
 #videoContainer {
