@@ -13,7 +13,7 @@ body {
 
 h1 {
     text-align: center; /* Center-align the heading */
-    font-size: 24px; /* Adjust the font size */
+    font-size: 32px; /* Adjust the font size */
     color: #333; /* Set the text color */
     margin-bottom: 20px; /* Add some bottom margin for spacing */
 }
@@ -33,8 +33,8 @@ h1 {
     top: 50%; /* Place the button vertically at the middle of the container */
     left: 50%; /* Place the button horizontally at the middle of the container */
     transform: translate(-50%, -50%); /* Center the button perfectly */
-    padding: 10px 20px;
-    font-size: 20px;
+    padding: 15px 25px; /* Increase padding */
+    font-size: 24px; /* Increase font size */
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -44,14 +44,14 @@ h1 {
 }
 
 #result {
-    font-size: 24px;
+    font-size: 32px; /* Increase font size */
     margin-top: 20px;
 }
 
 #reqQtyBtn,
 #rmvBtn {
-    padding: 10px 20px;
-    font-size: 20px;
+    padding: 15px 25px; /* Increase padding */
+    font-size: 24px; /* Increase font size */
     background-color: #d74a69;
     color: #fff;
     border: none;
@@ -71,9 +71,9 @@ table {
 }
 
 th, td {
-    font-size: 24px;
+    font-size: 24px; /* Increase font size */
     border: 1px solid #dddddd;
-    padding: 8px;
+    padding: 12px; /* Increase padding */
     text-align: center;
 }
 
@@ -92,28 +92,29 @@ th, td {
 }
 
 .input-group {
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Increase margin bottom */
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px; /* Increase margin bottom */
 }
 
 .input-group input,
 .dropDown {
     width: 100%;
-    padding: 6px;
+    padding: 12px; /* Increase padding */
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid #ccc; /* Change border size */
+    border-radius: 5px;
+    font-size: 24px; /* Increase font size */
 }
 
 #confirm,
 #cancel {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+    margin-top: 15px; /* Increase margin top */
+    padding: 15px 25px; /* Increase padding */
+    font-size: 20px; /* Increase font size */
     background-color: #007bff;
     color: #fff;
     border: none;
