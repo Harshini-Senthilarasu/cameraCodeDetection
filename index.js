@@ -39,7 +39,7 @@ var rowIndex = 0;
 // Replace this part with functions to retrieve data from the database
 var tableData = [{  codeValue: "4902179022226", 
                     itemName: "Lemon Tea", 
-                    reqQty: 1,
+                    reqQty: 2,
                     currentQty: 0},
                 //  {  codeValue: "4901085613580", 
                 //     itemName: "Tully's Coffee Drink", 
