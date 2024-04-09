@@ -66,14 +66,14 @@ h1 {
 }
 
 table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
 }
 
 th, td {
     font-size: 24px; /* Increase font size */
     border: 1px solid #dddddd;
-    padding: 12px; /* Increase padding */
+    padding: 8px; /* Increase padding */
     text-align: center;
 }
 
