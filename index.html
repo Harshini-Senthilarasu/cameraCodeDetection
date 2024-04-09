@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Example</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="mobileStyle.css">
+<!--     <script type="module" src="https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/side-effects.min.js"></script> -->
+</head>
+<body>
+    <h1>
+        Barcode and QR code Scanner
+    </h1>
+    <div id="disclaimer" hidden></div> <!--This part is used to warn the users if the browser is unsupported-->
+    <div id="videoContainer">
+        <video id="video" autoplay playsinline></video>
+        <button id="scanButton" hidden>Scan</button> <!--should be hidden, will appear when a barcode has been scanned-->
+    </div>
+    <div id="result"></div> <!--used to display the value and type of the barcode/qrcode-->
+    <button id="reqQtyBtn">Enter Required Quantity</button> <!--Button to edit the required quantity of the items-->
+    <button id="rmvBtn">Remove Item</button> <!--Button is used to remove any item in the list-->
+    <div id="inventoryTable">
+        <table>
+            <thead>
+                <tr> <!--Add columns as needed-->
+                    <th>Item Name</th>
+                    <th>Code Value</th>
+                    <th>Required Quantity</th>
+                    <th>Current Quantity</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!--Rows will be added in js script-->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="newScanPopup" class="popup"> <!--Popup appears if the barcode scanned is not in the table-->
+        <p>Barcode not found in the table. Do you want to add a new item?</p>
+        <div class="input-group">
+            <label for="newValue">Barcode/QRCode Value:</label>
+            <input type="text" id="newValue" placeholder="Enter Value">
+        </div>
+        <div class="input-group">
+            <label for="newItemName">Item Name:</label>
+            <input type="text" id="newItemName" placeholder="Enter Item Name">
+        </div>
+        <div class="input-group">
+            <label for="reqQty">Required Quantity:</label> <!--What is the quantity of items required?-->
+            <input type="number" id="reqQty" placeholder="Enter Required Quantity" min="0">
+        </div>
+        <div class="input-group">
+            <label for="newQty">Current Quantity:</label> <!--What is the quantity of items you have to be scanned?-->
+            <input type="number" id="newQty" placeholder="Enter Scan Quantity" min="0">
+        </div>
+        
+        <button id="confirm">Confirm</button>
+        <button id="cancel">Cancel</button>
+    </div>
+    
+    <div id="reqQtyPopup" class="popup"><!--Popup appears if reqQtybtn is clicked to edit the required quantity-->
+        <p>Choose the item to be edit the required quantity and enter the value</p>
+        <select id="reqDropDown" class="dropDown">
+            <option value="" selected disabled>Please select</option>
+        </select> <!--Dropdown will display the items in the inventory table-->
+        
+        <div class="input-group">
+            <label for="newReqQty">Selected Item:</label>
+            <input type="number" id="newReqQty" placeholder="Enter Required Quantity" min="1"> <!--Minimum is set to 1 as item will be flagged complete if it is at 0 or excess-->     
+        </div>
+        <button id="confirm">Confirm</button>
+        <button id="cancel">Cancel</button>
+    </div>
+
+    <div id="exceededPopup" class="popup"> <!--Popup will appear when the scanned amount has exceed the required amount. Current amount will be reverted back to required amount value-->
+        <p>You already have enough of this item. Please place it back onto the shelf</p>
+        <button id="close">Close</button>
+    </div>
+
+    <div id="rmvPopup" class="popup">
+        <p>Which item would you like to remove?</p>
+        <select id="rmvDropDown" class="dropDown">
+            <option value="" selected disabled>Please select</option>
+        </select> <!--Dropdown will display the items in the inventory table-->
+        <button id="confirm">Confirm</button>
+        <button id="cancel">Cancel</button>
+    </div>
+
+    <div id="completedPopup" class="popup">
+        <p>All items have been collected!!</p>
+        <button id="close">Close</button>
+    </div>
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>
