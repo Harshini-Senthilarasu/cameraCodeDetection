@@ -223,7 +223,7 @@ function confirmButton(event) {
             // console.log(tableData);
             // tableData.appendChild(dropDownRow);
             // console.log("DropDownRow:", dropDownIndex);
-            displayTable(0, dropDownIndex);
+            displayTable(4, dropDownIndex);
             dropDownReqQty.value = '';
             reqQtyPopup.style.display = 'none';
         }
@@ -297,6 +297,10 @@ function displayTable(val, rowIndex) {
                     break;
                 case 3:
                     tr.style.backgroundColor = 'turquoise';
+                    val = 0;
+                    break;
+                case 4:
+                    tr.style.backgroundColor = 'lightblue';
                     val = 0;
                     break;
             }
