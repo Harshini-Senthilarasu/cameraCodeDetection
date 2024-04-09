@@ -22,6 +22,10 @@ body {
 }
 
 #scanButton {
+    position: absolute; /* Position the button absolutely within the container */
+    top: 50%; /* Place the button vertically at the middle of the container */
+    left: 50%; /* Place the button horizontally at the middle of the container */
+    transform: translate(-50%, -50%); /* Center the button perfectly */
     padding: 10px 20px;
     font-size: 16px;
     background-color: #007bff;
