@@ -4,7 +4,7 @@ import './barcode-detector/dist/es/index.js';
 const video = document.getElementById('video');
 const disclaimer = document.getElementById('disclaimer');
 const inventoryTable = document.getElementById('inventoryTable');
-var tableBody = document.getElementById("tableBody");
+var tableBody = document.getElementById("tableBody"); 
 const scanBtn = document.getElementById('scanButton');
 const newScanPopup = document.getElementById('newScanPopup');
 var newValue = document.getElementById("newValue");
