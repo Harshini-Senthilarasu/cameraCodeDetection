@@ -12,7 +12,7 @@ body {
 }
 
 #h1 {
-    font-size: 100px;
+    font-size: 80px;
 }
 
 #videoContainer {
@@ -31,7 +31,7 @@ body {
     left: 50%; /* Place the button horizontally at the middle of the container */
     transform: translate(-50%, -50%); /* Center the button perfectly */
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -41,14 +41,14 @@ body {
 }
 
 #result {
-    font-size: 20px;
+    font-size: 24px;
     margin-top: 20px;
 }
 
 #reqQtyBtn,
 #rmvBtn {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 20px;
     background-color: #d74a69;
     color: #fff;
     border: none;
@@ -68,7 +68,7 @@ table {
 }
 
 th, td {
-    font-size: 20px;
+    font-size: 24px;
     border: 1px solid #dddddd;
     padding: 8px;
     text-align: center;
@@ -80,7 +80,7 @@ th, td {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 20px;
+    font-size: 24px;
     background-color: #fff;
     padding: 20px;
     border: 1px solid #ccc;
