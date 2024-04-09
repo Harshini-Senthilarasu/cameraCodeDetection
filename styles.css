@@ -11,6 +11,10 @@ body {
     font-family: 'Aptos', sans-serif; /* Use Aptos font */
 }
 
+#h1 {
+    font-size: 100px;
+}
+
 #videoContainer {
     margin-bottom: 20px; /* Add space between video container and other elements */
 }
