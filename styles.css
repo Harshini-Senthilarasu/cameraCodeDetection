@@ -33,7 +33,7 @@ body {
 }
 #reqQtyBtn {
     position: absolute;
-    top: 385px;
+    top: 450px;
     left: 45%;
     transform: translateX(-50%);
     padding: 10px 20px;
@@ -62,7 +62,7 @@ body {
 
 #rmvBtn {
     position: absolute;
-    top: 385px;
+    top: 450px;
     left: 58%;
     transform: translateX(-50%);
     padding: 10px 20px;
