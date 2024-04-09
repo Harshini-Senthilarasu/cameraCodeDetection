@@ -3,8 +3,9 @@ import './barcode-detector/dist/es/index.js';
 
 const video = document.getElementById('video');
 const disclaimer = document.getElementById('disclaimer');
+const resultElement = document.getElementById('result');
 const inventoryTable = document.getElementById('inventoryTable');
-var tableBody = document.getElementById("tableBody"); 
+var tableBody = document.getElementById("tableBody");
 const scanBtn = document.getElementById('scanButton');
 const newScanPopup = document.getElementById('newScanPopup');
 var newValue = document.getElementById("newValue");
@@ -22,6 +23,7 @@ const closeBtn = document.getElementById("close");
 const rmvPopup = document.getElementById('rmvPopup');
 var confirmButtons = document.querySelectorAll('#newScanPopup #confirm, #reqQtyPopup #confirm, #rmvPopup #confirm'); //selects the confirm button on both popups
 var cancelButtons = document.querySelectorAll('#newScanPopup #cancel, #reqQtyPopup #cancel, #rmvPopup #cancel'); //selects the cancel button on both popups
+const completedPopup = document.getElementById("completedPopup");
 let scanningPaused = false;
 let scanInterval;
 
@@ -39,12 +41,12 @@ var rowIndex = 0;
 // Replace this part with functions to retrieve data from the database
 var tableData = [{  codeValue: "4902179022226", 
                     itemName: "Lemon Tea", 
-                    reqQty: 2,
+                    reqQty: 1,
                     currentQty: 0},
-                //  {  codeValue: "4901085613580", 
-                //     itemName: "Tully's Coffee Drink", 
-                //     reqQty: 3,
-                //     currentQty: 0},
+                 {  codeValue: "4901085613580", 
+                    itemName: "Tully's Coffee Drink", 
+                    reqQty: 3,
+                    currentQty: 0},
                 //  {  codeValue: "4901306069530", 
                 //     itemName: "Wheat Drink", 
                 //     reqQty: 3,
@@ -97,7 +99,6 @@ function startScanning() {
                 const barcodes = await barcodeDetector.detect(video);
                 if (barcodes && barcodes.length > 0) {
                     stopScanning();
-                    const resultElement = document.getElementById('result');
                     resultElement.innerHTML = '';
                     // let foundMatch = false;
 
@@ -110,6 +111,7 @@ function startScanning() {
                             existingRow.currentQty++;
                             // console.log("Increment:", rowIndex);
                             displayTable(1, rowIndex);
+                            updateResult(1); //will change result element to say value has been incremented
                         }
                         else{
                             //add a new rowData in tableData is item is not found
@@ -209,6 +211,7 @@ function confirmButton(event) {
                 const rowIndex = tableData.findIndex(row => row.codeValue === rowData.codeValue);
                 displayTable(3, rowIndex);
                 newScanPopup.style.display = 'none';
+                updateResult(4); //result element will display that new item has been added
             }
         } else {
             alert('Please enter both barcode and item name.');
@@ -226,6 +229,7 @@ function confirmButton(event) {
             displayTable(4, dropDownIndex);
             dropDownReqQty.value = '';
             reqQtyPopup.style.display = 'none';
+            updateResult(2);
         }
     }
 
@@ -239,6 +243,7 @@ function confirmButton(event) {
             // console.log("DropDownRow:", dropDownIndex);
             displayTable(0, dropDownIndex);
             rmvPopup.style.display = 'none';
+            updateResult(3);
         }
     }
 }
@@ -317,6 +322,18 @@ function displayTable(val, rowIndex) {
         tableBody.appendChild(tr);
         arrayIndex++;
     })
+
+    //check if all items have been added
+    var completedList = 0; //value to increment if the item has been completed
+    var numOfItems = tableData.length; //find total number of rows in the data
+    tableData.forEach(function(row) {
+        if(row.currentQty === row.reqQty) {
+            completedList++;
+        }
+        if(completedList === numOfItems) {
+            completedPopup.style.display = 'block';
+        }
+    })
 }
 
 closeBtn.addEventListener("click", function() {
@@ -333,3 +350,23 @@ rmvBtn.addEventListener("click", function() {
         dropDownRmv.appendChild(option);
     })
 })
+
+function updateResult(change) {
+    switch(change) {
+        case 1:
+            resultElement.innerHTML = 'Item has been incremented.';
+            break;
+        case 2:
+            resultElement.innerHTML = 'Required Quantity has been changed.';
+            break;
+        case 3:
+            resultElement.innerHTML = 'Item has been removed.';
+            break;
+        case 4:
+            resultElement.innerHTML = 'Item has been added.';
+            break;
+        default:
+            // resultElement.innerHTML = '';
+            break;
+    }
+}
