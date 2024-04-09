@@ -219,10 +219,7 @@ function confirmButton(event) {
         if (confirm('Are you sure you want to edit the item?')) {
             const dropDownRow = tableData.find(row => row.itemName === dropDownItem.value);
             const dropDownIndex = tableData.findIndex(row => row.itemName === dropDownItem.value);
-            let value = parseInt(dropDownReqQty.value);
-            if (value < 0){
-                dropDownRow.reqQty = value;
-            }            
+            dropDownRow.reqQty = parseInt(dropDownReqQty.value);           
             // console.log(tableData);
             // tableData.appendChild(dropDownRow);
             // console.log("DropDownRow:", dropDownIndex);
