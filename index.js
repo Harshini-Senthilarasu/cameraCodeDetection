@@ -235,8 +235,7 @@ function confirmButton(event) {
               reqDropDown.value = '';
               reqQtyPopup.style.display = 'none';
               result.innerHTML = `<p> Required quantity of ${dropDownRow.itemName} has been changed.<p>`;
-              scanPaused = false;
-              cameraInit();
+              scanBtn.style.display  = 'block'; //display scan button
           }
         }
         else {
@@ -253,8 +252,7 @@ function confirmButton(event) {
             displayTable();
             rmvPopup.style.display = 'none';
             result.innerHTML = `<p> ${dropDownRow.itemName} has been removed.<p>`; 
-            scanPaused = false;
-            cameraInit();
+            scanBtn.style.display  = 'block'; //display scan button
         }
     }
 }
