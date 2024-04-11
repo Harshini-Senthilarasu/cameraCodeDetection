@@ -63,24 +63,28 @@ Brief:  This part of the code would firstly check if the browser is supported
         If the browser is not supported or if the camera is not accesable, it would 
         display a message in the disclaimer division of the browser.
 */
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
-        .then(function(stream) {
-            console.log('getUserMedia succeeded');
-            video.srcObject = stream;
-            video.onloadedmetadata = function(e) {
-                video.play();
-                startScanning();
-            };
-        })
-        .catch(function(err) {
-            disclaimer.innerHTML = 'Camera is not accessable';
-            console.log('Error accessing camera: ', err);
-        });
-} else {
-    disclaimer.innerHTML = 'getUserMedia is not supported on this browser';
-    console.log('getUserMedia is not supported on this browser');
+async function cameraInit(){
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+            .then(function(stream) {
+                console.log('getUserMedia succeeded');
+                video.srcObject = stream;
+                video.onloadedmetadata = function(e) {
+                    video.play();
+                    startScanning();
+                };
+            })
+            .catch(function(err) {
+                disclaimer.innerHTML = 'Camera is not accessable';
+                console.log('Error accessing camera: ', err);
+            });
+    } else {
+        disclaimer.innerHTML = 'getUserMedia is not supported on this browser';
+        console.log('getUserMedia is not supported on this browser');
+    }
 }
+
+cameraInit();
 
 
 /*
