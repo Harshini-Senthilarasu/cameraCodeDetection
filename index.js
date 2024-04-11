@@ -228,7 +228,7 @@ function confirmButton(event) {
     else if(parentPopup.id === "reqQtyPopup") {
         if (confirm('Are you sure you want to edit the item?')) {
             const dropDownRow = tableData.find(row => row.itemName === reqDropDown.value);
-            dropDownRow.reqQty = parseInt(newReqQty.value); 
+            dropDownRow.requiredQty = parseInt(newReqQty.value); 
             const dropDownIndex = tableData.findIndex(row => row.itemName === reqDropDown.value);
             displayTable();
             reqDropDown.value = '';
