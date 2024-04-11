@@ -85,6 +85,10 @@ th, td {
     z-index: 9999;
 }
 
+#completedPopup {
+    background-colour:  #12d754;
+}
+
 .input-group {
     margin-bottom: 10px; /* Adjust margin bottom for mobile */
 }
