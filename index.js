@@ -202,7 +202,7 @@ function cancelButton(event) {
 }
 
 function confirmButton(event) {
-    var parentPopup = event.target.closst(".popup"); 
+    var parentPopup = event.target.closest(".popup"); 
 
     if (parentPopup.id === "newScanPopup") {
         if (newValue && newItemName && reqQty && scanQty) {
