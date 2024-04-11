@@ -48,10 +48,10 @@ var tableData = [{  codeValue: "4902179022226",
                     itemName: "Tully's Coffee Drink", 
                     requiredQty: 3,
                     scannedQty: 0},
-                {   codeValue: "4901306069530", 
-                    itemName: "Wheat Drink", 
-                    requiredQty: 3,
-                    scannedQty: 0},
+                // {   codeValue: "4901306069530", 
+                //     itemName: "Wheat Drink", 
+                //     requiredQty: 2,
+                //     scannedQty: 0},
 ];
 
 /*
