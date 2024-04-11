@@ -226,14 +226,21 @@ function confirmButton(event) {
     }
 
     else if(parentPopup.id === "reqQtyPopup") {
-        if (confirm('Are you sure you want to edit the item?')) {
-            const dropDownRow = tableData.find(row => row.itemName === reqDropDown.value);
-            dropDownRow.requiredQty = parseInt(newReqQty.value); 
-            const dropDownIndex = tableData.findIndex(row => row.itemName === reqDropDown.value);
-            displayTable();
-            reqDropDown.value = '';
-            reqQtyPopup.style.display = 'none';
-            result.innerHTML = `<p> Required quantity of ${dropDownRow.itemName} has been changed.<p>`;
+        if (newReqQty) {
+          if (confirm('Are you sure you want to edit the item?')) {
+              const dropDownRow = tableData.find(row => row.itemName === reqDropDown.value);
+              dropDownRow.requiredQty = parseInt(newReqQty.value); 
+              const dropDownIndex = tableData.findIndex(row => row.itemName === reqDropDown.value);
+              displayTable();
+              reqDropDown.value = '';
+              reqQtyPopup.style.display = 'none';
+              result.innerHTML = `<p> Required quantity of ${dropDownRow.itemName} has been changed.<p>`;
+              scanPaused = false;
+              cameraInit();
+          }
+        }
+        else {
+          alert("Please enter all required values.");
         }
     }
     else if (parentPopup.id === "rmvPopup") {
@@ -246,6 +253,8 @@ function confirmButton(event) {
             displayTable();
             rmvPopup.style.display = 'none';
             result.innerHTML = `<p> ${dropDownRow.itemName} has been removed.<p>`; 
+            scanPaused = false;
+            cameraInit();
         }
     }
 }
@@ -266,6 +275,8 @@ Brief:  This would wait for the reqQtyBtn to be clicked, then display the
         popup in order to enter the required amount for the specific item
 */
 reqQtyBtn.addEventListener('click', function() {
+    scanPaused = true;
+    video.pause();
     reqQtyPopup.style.display = 'block';
     reqDropDown.innerHTML = "<option value='' selected disabled>Please select</option>"; // Reset dropdown
     tableData.forEach(function(row) {
@@ -277,6 +288,8 @@ reqQtyBtn.addEventListener('click', function() {
 });
 
 rmvBtn.addEventListener("click", function() {
+    scanPaused = true;
+    video.pause();
     rmvPopup.style.display = 'block';
     rmvDropDown.innerHTML = "<option value='' selected disabled>Please select</option>"; // Reset dropdown
     tableData.forEach(function(row) {
